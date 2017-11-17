@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface GymDAO {
     public void createGym(Gym gym) throws GymAlreadyExistsException,PersistenceException;
-    public List<Gym> readGym() throws StorageNotAvailableException;
-    public Gym readGym(int gymID) throws StorageNotAvailableException;
-    public void deleteGym(int gymID) throws GymNotFoundException;
-    public void updateGym(Gym gym) throws GymNotFoundException;
+    public List<Gym> readGym() throws StorageNotAvailableException,PersistenceException;
+    public Gym readGym(int gymID) throws StorageNotAvailableException,PersistenceException;
+    public void deleteGym(int gymID) throws GymNotFoundException,PersistenceException;
+    public void updateGym(Gym gym) throws GymNotFoundException,PersistenceException;
 }

@@ -1,7 +1,11 @@
 package hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions;
 
-public class NoNameException extends Throwable {
-    public NoNameException(String gymName_must_be_set) {
+public class NoNameException extends Exception {
+    public NoNameException() {
+    }
+
+    public NoNameException(String message) {
+        super(message);
     }
 
     public NoNameException(String message, Throwable cause) {
@@ -14,8 +18,5 @@ public class NoNameException extends Throwable {
 
     public NoNameException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    public NoNameException() {
     }
 }

@@ -1,11 +1,11 @@
 package hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions;
 
-public class NoValidForException extends Throwable {
+public class NoValidForException extends Exception {
     public NoValidForException() {
     }
 
-    public NoValidForException(String s) {
-
+    public NoValidForException(String message) {
+        super(message);
     }
 
     public NoValidForException(String message, Throwable cause) {

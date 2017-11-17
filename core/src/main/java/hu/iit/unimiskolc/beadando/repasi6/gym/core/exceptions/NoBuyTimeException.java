@@ -1,7 +1,11 @@
 package hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions;
 
-public class NoBuyTimeException extends Throwable {
-    public NoBuyTimeException(String buyTime_cannot_be_null) {
+public class NoBuyTimeException extends Exception {
+    public NoBuyTimeException() {
+    }
+
+    public NoBuyTimeException(String message) {
+        super(message);
     }
 
     public NoBuyTimeException(String message, Throwable cause) {
@@ -14,8 +18,5 @@ public class NoBuyTimeException extends Throwable {
 
     public NoBuyTimeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    public NoBuyTimeException() {
     }
 }

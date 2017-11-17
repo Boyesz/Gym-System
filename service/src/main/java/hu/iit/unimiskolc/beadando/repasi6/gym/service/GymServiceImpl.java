@@ -31,12 +31,20 @@ public class GymServiceImpl implements GymService {
 
     @Override
     public void deleteGymByID(int gymID) throws GymNotFoundException {
-        gymDAO.deleteGym(gymID);
+        try {
+            gymDAO.deleteGym(gymID);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void updateGym(Gym gym) throws GymNotFoundException {
-        gymDAO.updateGym(gym);
+        try {
+            gymDAO.updateGym(gym);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -44,6 +52,8 @@ public class GymServiceImpl implements GymService {
         try {
             return gymDAO.readGym();
         } catch (StorageNotAvailableException e) {
+            e.printStackTrace();
+        } catch (PersistenceException e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
@@ -57,6 +67,9 @@ public class GymServiceImpl implements GymService {
             return gymDAO.readGym(gymID);
         } catch (StorageNotAvailableException e) {
             throw new GymNotFoundException();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 }

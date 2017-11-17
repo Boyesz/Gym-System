@@ -23,6 +23,8 @@
     <modules>
         <module>core</module>
         <module>service</module>
+        <module>dao</module>
+        <module>dao</module>
     </modules>
 
 

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>hu.iit.uni-miskolc.beadando.repasi6.gym</groupId>
+    <groupId>hu.iit.unimiskolc.beadando.repasi6.gym</groupId>
     <artifactId>bundle</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -24,6 +24,7 @@
         <module>core</module>
         <module>service</module>
         <module>dao</module>
+        <module>daoJSON</module>
     </modules>
 
 

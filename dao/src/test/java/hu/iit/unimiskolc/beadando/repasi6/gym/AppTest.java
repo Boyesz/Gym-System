@@ -1,4 +1,4 @@
-package asd;
+package hu.iit.unimiskolc.beadando.repasi6.gym;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

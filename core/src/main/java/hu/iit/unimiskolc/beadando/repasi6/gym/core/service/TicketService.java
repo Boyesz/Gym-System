@@ -16,6 +16,4 @@ public interface TicketService {
 
     public void deleteTicket(int CustomerID) throws TicketNotFoundException;
 
-    public Collection<Ticket> readTicket();
-
 }

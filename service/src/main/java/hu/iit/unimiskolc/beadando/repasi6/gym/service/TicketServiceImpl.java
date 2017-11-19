@@ -48,9 +48,4 @@ public class TicketServiceImpl implements TicketService {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public Collection<Ticket> readTicket() {
-        return null;
-    }
 }

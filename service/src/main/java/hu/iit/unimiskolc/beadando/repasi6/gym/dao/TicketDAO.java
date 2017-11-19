@@ -18,6 +18,4 @@ public interface TicketDAO {
 
     public void deleteTicket(int CustomerID) throws TicketNotFoundException,PersistenceException;
 
-    public Collection<Ticket> readTicket() throws StorageNotAvailableException,PersistenceException;
-
 }

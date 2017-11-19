@@ -16,7 +16,7 @@ public interface CustomerService {
 
     public Customer readCustomerByID(int ID) throws CustomerNotFoundException;
 
-    public Collection<Customer> readCustomer() ;
+    public Collection<Customer> readCustomer(int gymid) ;
 
     public void deleteCustomerByID(int ID) throws CustomerNotFoundException;
 

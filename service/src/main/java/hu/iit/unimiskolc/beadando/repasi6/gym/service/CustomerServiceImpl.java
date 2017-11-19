@@ -54,9 +54,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Collection<Customer> readCustomer() {
+    public Collection<Customer> readCustomer(int gymid) {
         try {
-            return customerDAO.readCustomer();
+            return customerDAO.readCustomer(gymid);
         } catch (StorageNotAvailableException e) {
             e.printStackTrace();
         } catch (PersistenceException e) {

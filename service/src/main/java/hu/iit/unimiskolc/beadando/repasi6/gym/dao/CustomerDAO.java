@@ -17,7 +17,7 @@ public interface CustomerDAO {
 
     public Customer readCustomerByID(int ID) throws CustomerNotFoundException,PersistenceException;
 
-    public Collection<Customer> readCustomer() throws StorageNotAvailableException,PersistenceException;
+    public Collection<Customer> readCustomer(int gymid) throws StorageNotAvailableException,PersistenceException;
 
     public void deleteCustomerByID(int ID) throws CustomerNotFoundException,PersistenceException;
 }

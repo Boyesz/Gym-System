@@ -13,6 +13,7 @@ public class Gym {
     String gymName;
     String City;
     Collection<Customer> customers;
+    boolean verify;
 
     public Gym(int gymID, String email, String login, String gymName, boolean verify, String city) throws NoLoginException, NoNameException, NoEmailException, GymIDException {
         if(gymID == 0 || gymID < 0)
@@ -28,6 +29,15 @@ public class Gym {
         this.login = login;
         this.gymName = gymName;
         this.City = city;
+        this.verify = verify;
+    }
+
+    public boolean getVerify() {
+        return verify;
+    }
+
+    public void setVerify(boolean verify) {
+        this.verify = verify;
     }
 
     public Collection<Customer> getCustomers() {

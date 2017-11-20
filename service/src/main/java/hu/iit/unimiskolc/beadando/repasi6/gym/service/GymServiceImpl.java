@@ -9,6 +9,7 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.PersistenceExceptio
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class GymServiceImpl implements GymService {
@@ -48,7 +49,7 @@ public class GymServiceImpl implements GymService {
     }
 
     @Override
-    public List<Gym> getGym() {
+    public Collection<Gym> getGym() {
         try {
             return gymDAO.readGym();
         } catch (StorageNotAvailableException e) {

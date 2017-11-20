@@ -147,7 +147,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
     @Override
     public Collection<Customer> readCustomer(int gymid) throws StorageNotAvailableException, PersistenceException {
         Customer readCustomerObj = null;
-        List<Customer> readCustomerList = new ArrayList<>();
+        Collection<Customer> readCustomerList = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {

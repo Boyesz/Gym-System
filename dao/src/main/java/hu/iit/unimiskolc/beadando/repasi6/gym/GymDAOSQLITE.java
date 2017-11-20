@@ -10,6 +10,7 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailable
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class GymDAOSQLITE implements GymDAO {
@@ -53,8 +54,8 @@ public class GymDAOSQLITE implements GymDAO {
     }
 
     @Override
-    public List<Gym> readGym() throws StorageNotAvailableException, PersistenceException {
-        List<Gym> readGyms = new ArrayList<>();
+    public Collection<Gym> readGym() throws StorageNotAvailableException, PersistenceException {
+        Collection<Gym> readGyms = new ArrayList<>();
         Gym readGymObj = null;
         /*try {
             readGymObj = new Gym(1,"init","init","init",true,"init");

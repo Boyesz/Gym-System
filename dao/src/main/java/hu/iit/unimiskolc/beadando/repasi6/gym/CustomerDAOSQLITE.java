@@ -50,7 +50,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Cannot create gym.");
         }
     }
 
@@ -78,7 +78,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Cannot update customer.");
         }
     }
 
@@ -108,7 +108,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Cannot update customer.");
         }
         return readCustomerObj;
     }
@@ -139,7 +139,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Cannot read customer.");
         }
         return readCustomerObj;
     }
@@ -172,7 +172,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Cannot update customer's.");
         }
         return readCustomerList;
     }
@@ -191,7 +191,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
             preparedStatement.setInt(1,ID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Could not delete customer.");
         }
     }
 }

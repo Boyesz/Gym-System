@@ -48,7 +48,7 @@ public class GymDAOSQLITE implements GymDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Gym creation failed.");
         }
 
     }
@@ -91,7 +91,7 @@ public class GymDAOSQLITE implements GymDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Cannot read gym's");
         }
         return readGyms;
     }
@@ -132,7 +132,7 @@ public class GymDAOSQLITE implements GymDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Cannot read gym.");
         }
         return readGymObj;
     }
@@ -151,7 +151,7 @@ public class GymDAOSQLITE implements GymDAO {
                 preparedStatement.setInt(1,gymID);
                 preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Could not delete gym");
         }
     }
 
@@ -174,7 +174,7 @@ public class GymDAOSQLITE implements GymDAO {
             preparedStatement.setBoolean(6,gym.getVerify());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Cannot update gym");
         }
     }
 }

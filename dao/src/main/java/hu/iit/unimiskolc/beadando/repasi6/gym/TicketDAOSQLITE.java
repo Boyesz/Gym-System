@@ -43,7 +43,7 @@ public class TicketDAOSQLITE implements TicketDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Could not create ticket.");
         }
     }
 
@@ -69,7 +69,7 @@ public class TicketDAOSQLITE implements TicketDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Could not update ticket.");
         }
     }
 
@@ -97,7 +97,7 @@ public class TicketDAOSQLITE implements TicketDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Cannot read ticket's.");
         }
         return readTicketObj;
     }
@@ -116,7 +116,7 @@ public class TicketDAOSQLITE implements TicketDAO {
             preparedStatement.setInt(1,CustomerID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PersistenceException("Could not delete ticket.");
         }
     }
 }

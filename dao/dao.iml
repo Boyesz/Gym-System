@@ -13,7 +13,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="module" module-name="service" />
-    <orderEntry type="library" name="Maven: hu.iit.uni-miskolc.beadando.repasi6.gym:core:1.0-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="core" />
     <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.7.2" level="project" />
   </component>

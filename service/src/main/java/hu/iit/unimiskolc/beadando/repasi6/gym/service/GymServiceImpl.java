@@ -58,7 +58,6 @@ public class GymServiceImpl implements GymService {
             e.printStackTrace();
         }
         return new ArrayList<>();
-
     }
 
 

@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>daoJSON</artifactId>
+    <artifactId>dao</artifactId>
     <packaging>jar</packaging>
 
-    <name>daoJSON</name>
+    <name>dao</name>
     <url>http://maven.apache.org</url>
 
     <properties>

@@ -11,7 +11,7 @@ public class Gym {
     String email;
     String login;
     String gymName;
-    String City;
+    String city;
     Collection<Customer> customers;
     boolean verify;
 
@@ -28,7 +28,7 @@ public class Gym {
         this.email = email;
         this.login = login;
         this.gymName = gymName;
-        this.City = city;
+        this.city = city;
         this.verify = verify;
     }
 
@@ -81,10 +81,10 @@ public class Gym {
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        city = city;
     }
 }

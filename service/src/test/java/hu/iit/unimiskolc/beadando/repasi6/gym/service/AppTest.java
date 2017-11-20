@@ -1,4 +1,4 @@
-package hu.iit.unimiskolc.beadando.repasi6.gym.service-miskolc.beadando.repasi6.gym;
+package hu.iit.unimiskolc.beadando.repasi6.gym.service;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

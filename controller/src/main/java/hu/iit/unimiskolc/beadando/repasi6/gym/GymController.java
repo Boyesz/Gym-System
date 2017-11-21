@@ -15,15 +15,18 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/gym")
 public class GymController {
 
-    @Autowired
     private GymService gymService;
 
     public GymController(GymService gymService) {
         this.gymService = gymService;
     }
-
+    /*{
+"gymID" : 1000,"gymName" : "Test",
+  "login" : "test",
+  "email" : "asd@asd.hu",
+  "city" : "testCity"
+}*/
     @RequestMapping(value={"/addGym"}, method={RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
     public void gymCreate(@RequestBody GymRegistrationRequest gymRegistrationRequest) throws GymAlreadyExistsException {
         Gym gym = null;
         try {

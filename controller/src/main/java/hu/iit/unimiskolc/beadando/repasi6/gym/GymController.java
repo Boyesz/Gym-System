@@ -4,12 +4,9 @@ import com.example.myschema.GymRegistrationRequest;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.*;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Gym;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.service.GymService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/gym")
@@ -27,6 +24,7 @@ public class GymController {
   "city" : "testCity"
 }*/
     @RequestMapping(value={"/addGym"}, method={RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public void gymCreate(@RequestBody GymRegistrationRequest gymRegistrationRequest) throws GymAlreadyExistsException {
         Gym gym = null;
         try {
@@ -45,11 +43,6 @@ public class GymController {
             e.printStackTrace();
         }
         gymService.createGym(gym);
-    }
-
-    @RequestMapping(value = "/Employee/{employeeId}", method = RequestMethod.GET)
-    public ModelAndView getGym(@PathVariable (value = "gymID")int gymID) throws GymNotFoundException {
-        return new ModelAndView("gym","command",gymService.getGymByID(gymID));
     }
 
 }

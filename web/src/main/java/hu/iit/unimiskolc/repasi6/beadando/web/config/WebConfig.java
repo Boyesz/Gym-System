@@ -5,9 +5,8 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.GymDAOSQLITE;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.service.GymService;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.GymDAO;
 import hu.iit.unimiskolc.beadando.repasi6.gym.service.GymServiceImpl;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
+import org.springframework.context.annotation.Bean;
 
 
 @Configuration
@@ -17,11 +16,11 @@ public class WebConfig {
     public GymController gymController(){
         return new GymController(gymService());
     }
-    @Bean(value = "generic")
+
     GymService gymService(){
         return new GymServiceImpl(gymDAO());
     }
-    @Bean(value = "gao")
+
     GymDAO gymDAO(){
         return new GymDAOSQLITE();
     }

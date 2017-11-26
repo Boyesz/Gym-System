@@ -13,9 +13,9 @@ public class Gym {
     String gymName;
     String city;
     Collection<Customer> customers;
-    boolean verify;
+    int verify;
 
-    public Gym(int gymID, String email, String login, String gymName, boolean verify, String city) throws NoLoginException, NoNameException, NoEmailException, GymIDException {
+    public Gym(int gymID, String email, String login, String gymName, int verify, String city) throws NoLoginException, NoNameException, NoEmailException, GymIDException {
         if(gymID == 0 || gymID < 0)
             throw new GymIDException("GymID cannot be null or negtive.");
         if(email == null)
@@ -32,11 +32,11 @@ public class Gym {
         this.verify = verify;
     }
 
-    public boolean getVerify() {
+    public int getVerify() {
         return verify;
     }
 
-    public void setVerify(boolean verify) {
+    public void setVerify(int verify) {
         this.verify = verify;
     }
 

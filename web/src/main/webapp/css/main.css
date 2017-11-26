@@ -1,0 +1,161 @@
+html, body {
+	margin:0;
+    padding:0;
+    height:100%;
+    font-family: "Fresca",Arial;
+    color: white;
+	background: url('hatter.jpg') center center / cover no-repeat;
+	filter: grayscale(30%);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+a {
+    color: white;
+}
+
+.mytitle{
+    font-size: 60px;
+    text-shadow: 4px 4px #000000;
+    
+}
+.logo{
+    background-color: white;
+    
+}
+
+.regbox{
+	border-radius: 56px 27px 0px 27px;
+	padding: 5%;
+	-moz-border-radius: 56px 27px 0px 27px;
+	-webkit-border-radius: 56px 27px 0px 27px;
+	border: 0px solid #ab472e;
+	background: rgb(255, 51, 0);
+}
+
+.secondtitle{
+    font-size: 28px;
+}
+
+.to-mid {
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0);
+}
+.full-mid {
+    position: absolute;
+    top: 50%;
+    margin-bottom: -50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.head {
+     font-family: Indie Flower,Arial;
+    position: absolute;
+    top: 0;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-top: 5px;
+    width : 100%;
+    text-align : center;
+}
+
+.foot {
+    font-family: Arial;
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+.head a {
+    margin:0px 10px;
+    text-decoration: none;
+}
+
+.foot a {
+    margin:0px 10px;
+    text-decoration: none;
+}
+
+.button-margin {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.button {
+    padding: 15px;
+    margin: 10px;
+    width: 200px;
+    background: rgb(255, 51, 0);
+    font-family: Open Sans,Arial;
+    font-size: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    display: inline-block;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	border-radius: 8px
+	
+}
+.button:hover {
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	background-color: black;
+}
+
+.buttonReg-margin {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.buttonReg {
+    padding: 15px;
+    margin: 10px;
+    width: 200px;
+    background: rgb(255, 51, 0);
+	font-family: "Fresca",Arial;
+    font-size: 16px;
+	color: white;
+    text-align: center;
+    text-transform: uppercase;
+    display: inline-block;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	border-radius: 8px
+	
+}
+.buttonReg:hover {
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	background-color: yellow;
+	color: black;
+}
+
+/* Style the links inside the sidenav */
+#mySidenav a {
+    position: absolute;
+    left: -120px; 
+    transition: 0.7s; 
+    padding: 15px;
+    width: 156px; 
+    text-decoration: none; 
+    font-size: 20px; 
+    color: white; 
+    border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
+}
+
+#mySidenav a:hover {
+    left: 0; /* On mouse-over, make the elements appear as they should */
+}
+
+/* The about link: 20px from the top with a green background */
+#about {
+    top: 20px;
+    background: rgb(255, 51, 0);
+}
+
+#blog {
+    top: 80px;
+    background: rgb(255, 51, 0);
+}

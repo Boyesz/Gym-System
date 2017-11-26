@@ -13,7 +13,7 @@ public class Customer {
     String email;
     String login;
     Ticket ticket;
-    public Customer(String name, LocalDate registrationDate, LocalDate validFor, int opportunity, LocalDate buyTime, int gymID, LocalDate birthDay, LocalDate lastUpdate, String email, String login) throws NoNameException, NoRegistrationDateException, GymIDException, NoEmailException, NoLoginException, NoBirthDayException {
+    public Customer(String name, LocalDate registrationDate, int gymID, LocalDate birthDay, String email, String login) throws NoNameException, NoRegistrationDateException, GymIDException, NoEmailException, NoLoginException, NoBirthDayException {
         if(name == null)
             throw new NoNameException("Name must be set.");
         if(registrationDate == null)

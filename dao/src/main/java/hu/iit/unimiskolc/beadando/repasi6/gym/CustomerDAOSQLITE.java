@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class CustomerDAOSQLITE implements CustomerDAO {
+    String url = "jdbc:sqlite:./database/" + "customer";
     @Override
     public void createCustomer(Customer customer) throws CustomerAlreadyExistsException, PersistenceException {
         try {
@@ -21,7 +22,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "customer";
+
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -61,7 +62,6 @@ public class CustomerDAOSQLITE implements CustomerDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "customer";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -90,7 +90,6 @@ public class CustomerDAOSQLITE implements CustomerDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "customer";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -121,7 +120,6 @@ public class CustomerDAOSQLITE implements CustomerDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "customer";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -153,8 +151,6 @@ public class CustomerDAOSQLITE implements CustomerDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "customer";
-
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 PreparedStatement preparedStatement = conn.prepareStatement("SELECT id,name,registrationdate,login,birthday,email,gymid FROM Customer Where");
@@ -184,7 +180,6 @@ public class CustomerDAOSQLITE implements CustomerDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "customer";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM Customer Where id = ?");

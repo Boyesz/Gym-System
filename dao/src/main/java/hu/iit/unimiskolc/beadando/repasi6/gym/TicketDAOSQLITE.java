@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 public class TicketDAOSQLITE implements TicketDAO {
+    String url = "jdbc:sqlite:./database/" + "ticket";
     @Override
     public void createTicket(Ticket ticket) throws TicketAlreadyExistsException, PersistenceException {
         try {
@@ -19,7 +20,7 @@ public class TicketDAOSQLITE implements TicketDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "ticket";
+
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -54,7 +55,6 @@ public class TicketDAOSQLITE implements TicketDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "ticket";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -81,7 +81,6 @@ public class TicketDAOSQLITE implements TicketDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "ticket";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -109,7 +108,6 @@ public class TicketDAOSQLITE implements TicketDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "ticket";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM Customer Where customerid = ?");

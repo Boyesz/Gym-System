@@ -15,7 +15,7 @@ import java.util.List;
 
 public class GymDAOSQLITE implements GymDAO {
 
-
+    String url = "jdbc:sqlite:./database/" + "gym";
     @Override
     public void createGym(Gym gym) throws GymAlreadyExistsException, PersistenceException {
         try {
@@ -23,7 +23,7 @@ public class GymDAOSQLITE implements GymDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "gym";
+
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -32,7 +32,8 @@ public class GymDAOSQLITE implements GymDAO {
                         + "	name text NOT NULL,\n"
                         + "	city text NOT NULL,\n"
                         + "	login text NOT NULL,\n"
-                        + "	email text NOT NULL\n"
+                        + "	email text NOT NULL,\n"
+                        + " verify integer NOT NULL DEFAULT '1'"
                         + ");";
                 Statement statement = conn.createStatement();
                 statement.execute(sql);
@@ -43,12 +44,13 @@ public class GymDAOSQLITE implements GymDAO {
                 preparedStatement.setString(3,gym.getCity());
                 preparedStatement.setString(4,gym.getLogin());
                 preparedStatement.setString(5,gym.getEmail());
-                preparedStatement.setBoolean(6,gym.getVerify());
+                preparedStatement.setInt(6,gym.getVerify());
                 preparedStatement.executeUpdate();
             }
 
         } catch (SQLException e) {
-            throw new PersistenceException("Gym creation failed.");
+            e.printStackTrace();
+            //throw new PersistenceException("Gym creation failed.");
         }
 
     }
@@ -73,7 +75,6 @@ public class GymDAOSQLITE implements GymDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "gym";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -85,7 +86,7 @@ public class GymDAOSQLITE implements GymDAO {
                     readGymObj.setEmail(resultSet.getString("email"));
                     readGymObj.setGymName(resultSet.getString("name"));
                     readGymObj.setGymID(resultSet.getInt("gymid"));
-                    readGymObj.setVerify(resultSet.getBoolean("verify"));
+                    readGymObj.setVerify(resultSet.getInt("verify"));
                     readGyms.add(readGymObj);
                 }
             }
@@ -115,7 +116,6 @@ public class GymDAOSQLITE implements GymDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "gym";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -128,7 +128,7 @@ public class GymDAOSQLITE implements GymDAO {
                     readGymObj.setEmail(resultSet.getString("email"));
                     readGymObj.setGymName(resultSet.getString("name"));
                     readGymObj.setGymID(gymID);
-                    readGymObj.setVerify(resultSet.getBoolean("verify"));
+                    readGymObj.setVerify(resultSet.getInt("verify"));
                 }
             }
         } catch (SQLException e) {
@@ -144,7 +144,6 @@ public class GymDAOSQLITE implements GymDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "gym";
 
         try (Connection conn = DriverManager.getConnection(url)) {
                 PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM Gym Where gymid = ?");
@@ -162,7 +161,6 @@ public class GymDAOSQLITE implements GymDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:./" + "gym";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement preparedStatement = conn.prepareStatement("UPDATE Gym SET gymid = ? , name = ? , city = ? , login = ?, email = ?, verify = ? ");
@@ -171,7 +169,7 @@ public class GymDAOSQLITE implements GymDAO {
             preparedStatement.setString(3,gym.getCity());
             preparedStatement.setString(4,gym.getLogin());
             preparedStatement.setString(5,gym.getEmail());
-            preparedStatement.setBoolean(6,gym.getVerify());
+            preparedStatement.setInt(6,gym.getVerify());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistenceException("Cannot update gym");

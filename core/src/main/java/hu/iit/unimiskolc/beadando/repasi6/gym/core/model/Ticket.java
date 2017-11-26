@@ -13,7 +13,7 @@ public class Ticket {
     LocalDate lastUpdate;
     int opportunity;
     int customerID;
-    public Ticket(LocalDate validFor,LocalDate buyTime,LocalDate LastUpdate,int Opporunity,int customerID) throws NoValidForException, NoBuyTimeException, GymIDException, NoLastUpdateException {
+    public Ticket(LocalDate validFor,LocalDate buyTime,LocalDate lastUpdate,int opportunity,int customerID) throws NoValidForException, NoBuyTimeException, GymIDException, NoLastUpdateException {
         if(validFor == null)
             throw new NoValidForException("Valid for must be set.");
         if(buyTime == null)

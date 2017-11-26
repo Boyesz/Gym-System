@@ -32,7 +32,7 @@ public class GymController {
                     gymRegistrationRequest.getEmail(),
                     gymRegistrationRequest.getLogin(),
                     gymRegistrationRequest.getGymName(),
-                    true,gymRegistrationRequest.getCity());
+                    1,gymRegistrationRequest.getCity());
         } catch (NoLoginException e) {
             e.printStackTrace();
         } catch (NoNameException e) {

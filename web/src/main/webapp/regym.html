@@ -2,8 +2,9 @@
 <html>
 <head> <title>MYPass</title>
     <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<link rel="script" type="text/js" href="js/regym.js">
+<script src="js/regym.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css?family=Fresca');
@@ -27,9 +28,7 @@
 <div class="mytitle">Konditerem regisztráció</div>
 
 <div class="button-margin , to-mid,full-mid">
-<form class="regbox" action="/gym/addGym" method="POST" id="regform">
-<a> Gymid </a><br><br>
-<input type="text" name="gymID" /><br><br>
+<form class="regbox" id="regform">
 <a> Konditerem neve </a><br><br>
 <input type="text" name="gymName" /><br><br>
 <a> Login név </a><br>

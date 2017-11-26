@@ -1,11 +1,9 @@
 $(document).ready(function () {
-
-    $('#submit').click(function(){
-
+    $("#submit").click(function(){
         $.ajax({
             type: "POST",
             url: "gym/addGym",
-            data: json.stringify({
+            data: JSON.stringify({
                 "gymID" : 1000,"gymName" : "Test",
                 "login" : "tet",
                 "email" : "asd@asd.hu",

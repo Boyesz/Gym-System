@@ -49,8 +49,7 @@ public class GymDAOSQLITE implements GymDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            //throw new PersistenceException("Gym creation failed.");
+            throw new PersistenceException("Gym creation failed.");
         }
 
     }

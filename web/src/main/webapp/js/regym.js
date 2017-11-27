@@ -1,11 +1,22 @@
 $(document).ready(function () {
+    var dataWait;
+    $.ajax({
+        type: "GET",
+        url: "gym/getMaxID",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){dataWait = data;},
+        failure: function(errMsg) {
+            alert(errMsg);
+        }
+    });
     $("#submit").click(function(){
         var gymname = document.getElementById("gymName").value;
         var login = document.getElementById("login").value;
         var email = document.getElementById("email").value;
         var city = document.getElementById("city").value;
         var parameters = '{' +
-            '"gymID":1000,' +
+            '"gymID":'+dataWait+',' +
             '"gymName":"' + gymname +'",' +
             '"login":"' +login +'",' +
             '"email":"'+email + '",' +
@@ -24,23 +35,3 @@ $(document).ready(function () {
         });
     });
 });
-/*
-$( "#regform" ).submit(function( event ) {
-
-
-    $.ajax({
-        url: '/gym/addGym', // url where to submit the request
-        type : "POST", // type of action POST || GET
-        dataType : 'application/json', // data type
-        data : parameters, // post data || get data
-        success : function(result) {
-            // you can see the result from the console
-            // tab of the developer tools
-            console.log(result);
-        },
-        error: function(xhr, resp, text) {
-            console.log(xhr, resp, text);
-        }
-    })
-});
-*/

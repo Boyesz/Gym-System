@@ -16,7 +16,7 @@ public class Gym {
     int verify;
 
     public Gym(int gymID, String email, String login, String gymName, int verify, String city) throws NoLoginException, NoNameException, NoEmailException, GymIDException {
-        if(gymID == 0 || gymID < 0)
+        if(gymID <= 0)
             throw new GymIDException("GymID cannot be null or negtive.");
         if(email == null)
             throw new NoEmailException("Email must be set.");

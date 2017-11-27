@@ -15,4 +15,5 @@ public interface GymDAO {
     public Gym readGym(int gymID) throws StorageNotAvailableException,PersistenceException;
     public void deleteGym(int gymID) throws GymNotFoundException,PersistenceException;
     public void updateGym(Gym gym) throws GymNotFoundException,PersistenceException;
+    public int getMaxGymID() throws GymNotFoundException,PersistenceException;
 }

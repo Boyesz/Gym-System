@@ -31,6 +31,18 @@ public class GymServiceImpl implements GymService {
     }
 
     @Override
+    public int getMaxGymID() {
+        try {
+           return gymDAO.getMaxGymID();
+        } catch (GymNotFoundException e) {
+            e.printStackTrace();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
     public void deleteGymByID(int gymID) throws GymNotFoundException {
         try {
             gymDAO.deleteGym(gymID);

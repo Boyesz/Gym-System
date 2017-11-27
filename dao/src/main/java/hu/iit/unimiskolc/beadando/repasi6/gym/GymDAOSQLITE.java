@@ -174,4 +174,28 @@ public class GymDAOSQLITE implements GymDAO {
             throw new PersistenceException("Cannot update gym");
         }
     }
+
+    @Override
+    public int getMaxGymID() throws GymNotFoundException, PersistenceException {
+        Gym readGymObj = null;
+        int id = 1000;
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection conn = DriverManager.getConnection(url)) {
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT MAX(gymid) FROM Gym");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()){
+                    id = resultSet.getInt(1);
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new PersistenceException("Cannot read gym.");
+        }
+        return id+1;
+    }
 }

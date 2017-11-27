@@ -9,6 +9,8 @@ import java.util.List;
 public interface GymService {
     void createGym(Gym gym) throws GymAlreadyExistsException;
 
+    int getMaxGymID();
+
     void deleteGymByID(int gymID) throws GymNotFoundException;
 
     void updateGym(Gym gym) throws GymNotFoundException;

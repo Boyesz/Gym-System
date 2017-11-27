@@ -23,6 +23,13 @@ public class GymController {
   "email" : "asd@asd.hu",
   "city" : "testCity"
 }*/
+
+    @RequestMapping(value = {"/getMaxID"},method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public int getGym(){
+        return gymService.getMaxGymID();
+    }
+
     @RequestMapping(value={"/addGym"}, method={RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public void gymCreate(@RequestBody GymRegistrationRequest gymRegistrationRequest) throws GymAlreadyExistsException {

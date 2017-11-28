@@ -1,8 +1,5 @@
 package hu.iit.unimiskolc.beadando.repasi6.gym.core.model;
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.GymIDException;
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.NoEmailException;
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.NoLoginException;
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.NoNameException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.*;
 
 import java.util.Collection;
 
@@ -15,21 +12,13 @@ public class Gym {
     Collection<Customer> customers;
     int verify;
 
-    public Gym(int gymID, String email, String login, String gymName, int verify, String city) throws NoLoginException, NoNameException, NoEmailException, GymIDException {
-        if(gymID <= 0)
-            throw new GymIDException("GymID cannot be null or negtive.");
-        if(email == null)
-            throw new NoEmailException("Email must be set.");
-        if(login == null)
-            throw new NoLoginException("Login must be set.");
-        if(gymName == null)
-            throw new NoNameException("GymName must be set.");
-        this.gymID = gymID;
-        this.email = email;
-        this.login = login;
-        this.gymName = gymName;
-        this.city = city;
-        this.verify = verify;
+    public Gym(int gymID, String email, String login, String gymName, int verify, String city) throws NoLoginException, NoNameException, NoEmailException, GymIDException, NoCityException {
+        setGymID(gymID);
+        setEmail(email);
+        setLogin(login);
+        setGymName(gymName);
+        setCity(city);
+        setVerify(verify);
     }
 
     public int getVerify() {
@@ -52,7 +41,9 @@ public class Gym {
         return gymID;
     }
 
-    public void setGymID(int gymID) {
+    public void setGymID(int gymID) throws GymIDException {
+        if(gymID <= 0)
+            throw new GymIDException("GymID cannot be null or negtive.");
         this.gymID = gymID;
     }
 
@@ -60,7 +51,9 @@ public class Gym {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws NoEmailException {
+        if(email.isEmpty())
+            throw new NoEmailException("Email must be set.");
         this.email = email;
     }
 
@@ -68,7 +61,9 @@ public class Gym {
         return login;
     }
 
-    public void setLogin(String login) {
+    public void setLogin(String login) throws NoLoginException {
+        if(login.isEmpty())
+            throw new NoLoginException("Login must be set.");
         this.login = login;
     }
 
@@ -76,7 +71,9 @@ public class Gym {
         return gymName;
     }
 
-    public void setGymName(String gymName) {
+    public void setGymName(String gymName) throws NoNameException {
+        if(gymName.isEmpty())
+            throw new NoNameException("GymName must be set.");
         this.gymName = gymName;
     }
 
@@ -84,7 +81,9 @@ public class Gym {
         return city;
     }
 
-    public void setCity(String city) {
-        city = city;
+    public void setCity(String city) throws NoCityException {
+        if(city.isEmpty())
+            throw new NoCityException("City cannot be empty");
+        this.city = city;
     }
 }

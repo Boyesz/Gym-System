@@ -48,6 +48,8 @@ public class GymController {
             e.printStackTrace();
         } catch (GymIDException e) {
             e.printStackTrace();
+        } catch (NoCityException e) {
+            e.printStackTrace();
         }
         gymService.createGym(gym);
     }

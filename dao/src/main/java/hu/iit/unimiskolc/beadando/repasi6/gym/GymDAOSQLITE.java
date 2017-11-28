@@ -91,7 +91,17 @@ public class GymDAOSQLITE implements GymDAO {
             }
 
         } catch (SQLException e) {
-            throw new PersistenceException("Cannot read gym's");
+            throw new PersistenceException("Cannot read gyms.");
+        } catch (GymIDException e) {
+            throw new PersistenceException("Missing gymid.");
+        } catch (NoEmailException e) {
+            throw new PersistenceException("Missing email.");
+        } catch (NoNameException e) {
+            throw new PersistenceException("Missing gym name.");
+        } catch (NoLoginException e) {
+            throw new PersistenceException("Missing login.");
+        } catch (NoCityException e) {
+            throw new PersistenceException("Missing city.");
         }
         return readGyms;
     }
@@ -132,6 +142,16 @@ public class GymDAOSQLITE implements GymDAO {
             }
         } catch (SQLException e) {
             throw new PersistenceException("Cannot read gym.");
+        } catch (GymIDException e) {
+            throw new PersistenceException("Missing gymid.");
+        } catch (NoEmailException e) {
+            throw new PersistenceException("Missing email.");
+        } catch (NoNameException e) {
+            throw new PersistenceException("Missing gym name.");
+        } catch (NoLoginException e) {
+            throw new PersistenceException("Missing login.");
+        } catch (NoCityException e) {
+            throw new PersistenceException("Missing city.");
         }
         return readGymObj;
     }

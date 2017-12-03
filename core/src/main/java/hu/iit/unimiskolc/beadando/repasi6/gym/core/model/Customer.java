@@ -2,10 +2,11 @@ package hu.iit.unimiskolc.beadando.repasi6.gym.core.model;
 
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.*;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.LocalDate;
 
 public class Customer {
-    int ID;
+    int id;
     String name;
     LocalDate registrationDate;
     int gymID;
@@ -13,41 +14,32 @@ public class Customer {
     String email;
     String login;
     Ticket ticket;
-    public Customer(String name, LocalDate registrationDate, int gymID, LocalDate birthDay, String email, String login) throws NoNameException, NoRegistrationDateException, GymIDException, NoEmailException, NoLoginException, NoBirthDayException {
-        if(name == null)
-            throw new NoNameException("Name must be set.");
-        if(registrationDate == null)
-            throw new NoRegistrationDateException("RegistrationDate cannot be null.");
-        if(gymID == 0 || gymID < 0)
-            throw new GymIDException("GymID cannot be null or negtive.");
-        if(email == null)
-            throw new NoEmailException("Email cannot be set.");
-        if(login == null)
-            throw new NoLoginException("You must give login.");
-        if(birthDay == null)
-            throw new NoBirthDayException("BirthDay must be set.");
-        this.name = name;
-        this.registrationDate = registrationDate;
-        this.gymID = gymID;
-        this.birthDay = birthDay;
-        this.email = email;
-        this.login = login;
+    public Customer(int id, String name, LocalDate registrationDate, int gymID, LocalDate birthDay, String email, String login) throws NoNameException, NoRegistrationDateException, GymIDException, NoEmailException, NoLoginException, NoBirthDayException {
+        setName(name);
+        setRegistrationDate(registrationDate);
+        setGymID(gymID);
+        setEmail(email);
+        setBirthDay(birthDay);
+        setLogin(login);
+        setID(id);
     }
 
 
     public int getID() {
-        return ID;
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws NoNameException {
+        if(name == null)
+            throw new NoNameException("Name must be set.");
         this.name = name;
     }
 
@@ -55,7 +47,9 @@ public class Customer {
         return registrationDate;
     }
 
-    public void setRegistrationDate(LocalDate registrationDate) {
+    public void setRegistrationDate(LocalDate registrationDate) throws NoRegistrationDateException {
+        if(registrationDate == null)
+            throw new NoRegistrationDateException("RegistrationDate cannot be null.");
         this.registrationDate = registrationDate;
     }
 
@@ -63,7 +57,9 @@ public class Customer {
         return gymID;
     }
 
-    public void setGymID(int gymID) {
+    public void setGymID(int gymID) throws GymIDException {
+        if(gymID == 0 || gymID < 0)
+            throw new GymIDException("GymID cannot be null or negtive.");
         this.gymID = gymID;
     }
 
@@ -71,7 +67,9 @@ public class Customer {
         return birthDay;
     }
 
-    public void setBirthDay(LocalDate birthDay) {
+    public void setBirthDay(LocalDate birthDay) throws NoBirthDayException {
+        if(birthDay == null)
+            throw new NoBirthDayException("BirthDay must be set.");
         this.birthDay = birthDay;
     }
 
@@ -79,7 +77,9 @@ public class Customer {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws NoEmailException {
+        if(email == null)
+            throw new NoEmailException("Email cannot be set.");
         this.email = email;
     }
 
@@ -87,7 +87,9 @@ public class Customer {
         return login;
     }
 
-    public void setLogin(String login) {
+    public void setLogin(String login) throws NoLoginException {
+        if(login == null)
+            throw new NoLoginException("You must give login.");
         this.login = login;
     }
 }

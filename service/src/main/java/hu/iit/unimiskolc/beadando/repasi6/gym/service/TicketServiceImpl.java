@@ -5,47 +5,28 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.TicketNotFoundExce
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Ticket;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.service.TicketService;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.TicketDAO;
-import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.PersistenceException;
-
-import java.util.Collection;
+import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
 
 public class TicketServiceImpl implements TicketService {
     TicketDAO ticketDAO;
 
     @Override
-    public void createTicket(Ticket ticket) throws TicketAlreadyExistsException {
-        try {
+    public void createTicket(Ticket ticket) throws TicketAlreadyExistsException, PersistenceException {
             ticketDAO.createTicket(ticket);
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
-    public void updateTicket(Ticket ticket) throws TicketNotFoundException {
-        try {
+    public void updateTicket(Ticket ticket) throws TicketNotFoundException, PersistenceException {
             ticketDAO.updateTicket(ticket);
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
-    public Ticket readTicketByCustomerID(int CustomerID) throws TicketNotFoundException {
-        try {
-            ticketDAO.readTicketByCustomerID(CustomerID);
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Ticket readTicketByCustomerID(int CustomerID) throws TicketNotFoundException, PersistenceException {
+            return ticketDAO.readTicketByCustomerID(CustomerID);
     }
 
     @Override
-    public void deleteTicket(int CustomerID) throws TicketNotFoundException {
-        try {
+    public void deleteTicket(int CustomerID) throws TicketNotFoundException, PersistenceException {
             ticketDAO.deleteTicket(CustomerID);
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -1,12 +1,15 @@
 package hu.iit.unimiskolc.beadando.repasi6.gym;
 
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.*;
+import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.TicketAlreadyExistsException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.TicketNotFoundException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Ticket;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.TicketDAO;
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Collection;
 
 public class TicketDAOSQLITE implements TicketDAO {
     String url = "jdbc:sqlite:./database/" + "ticket";
@@ -93,15 +96,7 @@ public class TicketDAOSQLITE implements TicketDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new PersistenceException("Cannot read tickets.");
-        } catch (NoBuyTimeException e) {
-            throw new PersistenceException("Missing buytime.");
-        } catch (NoValidForException e) {
-            throw new PersistenceException("Missing validfor time.");
-        } catch (GymIDException e) {
-            throw new PersistenceException("Missing gymid.");
-        } catch (NoLastUpdateException e) {
-            throw new PersistenceException("Missing lastupdate.");
+            throw new PersistenceException("Cannot read ticket's.");
         }
         return readTicketObj;
     }

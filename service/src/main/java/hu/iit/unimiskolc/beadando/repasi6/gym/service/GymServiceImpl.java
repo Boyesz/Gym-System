@@ -5,11 +5,12 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.GymNotFoundExcepti
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Gym;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.service.GymService;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.GymDAO;
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.PersistenceException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class GymServiceImpl implements GymService {
 
@@ -21,18 +22,33 @@ public class GymServiceImpl implements GymService {
 
 
     @Override
-    public void createGym(Gym gym) throws GymAlreadyExistsException, PersistenceException {
+    public void createGym(Gym gym) throws GymAlreadyExistsException{
+        try {
             gymDAO.createGym(gym);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public int getMaxGymID() throws GymNotFoundException, PersistenceException {
+    public int getMaxGymID() {
+        try {
            return gymDAO.getMaxGymID();
+        } catch (GymNotFoundException e) {
+            e.printStackTrace();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     @Override
-    public void deleteGymByID(int gymID) throws GymNotFoundException, PersistenceException {
+    public void deleteGymByID(int gymID) throws GymNotFoundException {
+        try {
             gymDAO.deleteGym(gymID);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -45,26 +61,27 @@ public class GymServiceImpl implements GymService {
     }
 
     @Override
-    public Collection<Gym> getGym() throws PersistenceException {
+    public Collection<Gym> getGym() {
         try {
             return gymDAO.readGym();
         } catch (StorageNotAvailableException e) {
-            throw new PersistenceException(e);
+            e.printStackTrace();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
+        return new ArrayList<>();
     }
 
 
     @Override
-    public Gym getGymByID(int gymID) throws GymNotFoundException, PersistenceException {
+    public Gym getGymByID(int gymID) throws GymNotFoundException {
         try {
             return gymDAO.readGym(gymID);
         } catch (StorageNotAvailableException e) {
             throw new GymNotFoundException();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
-    }
-
-    @Override
-    public Collection<String[]> allGymNameAndGymID() throws GymNotFoundException, PersistenceException {
-            return gymDAO.getGymNameAndGymID();
+        return null;
     }
 }

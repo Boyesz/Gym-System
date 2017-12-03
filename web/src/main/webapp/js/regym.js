@@ -1,8 +1,3 @@
-function validateEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
 function validate() {
     var gymname = document.getElementById("gymName");
     var login = document.getElementById("login");
@@ -35,16 +30,8 @@ function validate() {
         return false;
     }
     else{
-        if(validateEmail(email.value)){
-            email.style.backgroundColor = "green";
-            email.style.color = "snow";
-        }
-        else{
-            email.style.backgroundColor = "red";
-            alert("Kérlek helyes e-mailt adj meg.");
-            email.style.color = "snow";
-            return false;
-        }
+        email.style.backgroundColor = "green";
+        email.style.color = "snow";
     }
     if (city.value == "") {
         city.style.backgroundColor = "red";
@@ -89,9 +76,7 @@ $(document).ready(function () {
             data: parameters,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function(data){
-                if(data == 1)
-                window.location.href = "success.html";},
+            success: function(data){window.location.href = "succes.html";},
             failure: function(errMsg) {
                 alert(errMsg);
             }

@@ -1,4 +1,4 @@
-package hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions;
+package hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions;
 
 public class PersistenceException extends Exception {
     public PersistenceException() {

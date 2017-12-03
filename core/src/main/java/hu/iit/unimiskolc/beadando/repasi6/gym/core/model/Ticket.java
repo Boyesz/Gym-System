@@ -14,20 +14,26 @@ public class Ticket {
     int opportunity;
     int customerID;
     public Ticket(LocalDate validFor,LocalDate buyTime,LocalDate lastUpdate,int opportunity,int customerID) throws NoValidForException, NoBuyTimeException, GymIDException, NoLastUpdateException {
-        setOpportunity(opportunity);
-        setValidFor(validFor);
-        setLastUpdate(lastUpdate);
-        setBuyTime(buyTime);
-        setCustomerID(customerID);
+        if(validFor == null)
+            throw new NoValidForException("Valid for must be set.");
+        if(buyTime == null)
+            throw new NoBuyTimeException("BuyTime cannot be null.");
+        if(lastUpdate == null)
+            throw new NoLastUpdateException("Last update must be set.");
+        if(customerID == 0 || customerID <0)
+            throw new GymIDException("ID cannot be null or negative.");
+        this.validFor = validFor;
+        this.opportunity = opportunity;
+        this.buyTime = buyTime;
+        this.lastUpdate = lastUpdate;
+        this.customerID = customerID;
     }
 
     public LocalDate getValidFor() {
         return validFor;
     }
 
-    public void setValidFor(LocalDate validFor) throws NoValidForException {
-        if(validFor == null)
-            throw new NoValidForException("Valid for must be set.");
+    public void setValidFor(LocalDate validFor) {
         this.validFor = validFor;
     }
 
@@ -35,9 +41,7 @@ public class Ticket {
         return buyTime;
     }
 
-    public void setBuyTime(LocalDate buyTime) throws NoBuyTimeException {
-        if(buyTime == null)
-            throw new NoBuyTimeException("BuyTime cannot be null.");
+    public void setBuyTime(LocalDate buyTime) {
         this.buyTime = buyTime;
     }
 
@@ -45,9 +49,7 @@ public class Ticket {
         return lastUpdate;
     }
 
-    public void setLastUpdate(LocalDate lastUpdate) throws NoLastUpdateException {
-        if(lastUpdate == null)
-            throw new NoLastUpdateException("Last update must be set.");
+    public void setLastUpdate(LocalDate lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -63,9 +65,7 @@ public class Ticket {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) throws GymIDException {
-        if(customerID == 0 || customerID <0)
-            throw new GymIDException("ID cannot be null or negative.");
+    public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
 }

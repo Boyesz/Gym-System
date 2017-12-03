@@ -3,7 +3,10 @@ package hu.iit.unimiskolc.beadando.repasi6.gym.dao;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.TicketAlreadyExistsException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.TicketNotFoundException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Ticket;
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
+
+import java.util.Collection;
 
 public interface TicketDAO {
 

@@ -2,21 +2,21 @@ function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
-
 function validate() {
-    var gymname = document.getElementById("gymName");
+    var name = document.getElementById("name");
     var login = document.getElementById("login");
     var email = document.getElementById("email");
-    var city = document.getElementById("city");
-    if (gymname.value == "") {
-        gymname.style.backgroundColor = "red";
-        document.getElementById("gymName").placeholder = "Kérlek add meg a konditerem nevét.";
-        gymname.style.color = "snow";
+    var gym = document.getElementById("gym");
+    var birth = document.getElementById("birth");
+    if (name.value == "") {
+        name.style.backgroundColor = "red";
+        document.getElementById("name").placeholder = "Kérlek add meg a saját neved.";
+        name.style.color = "snow";
         return false;
     }
     else{
-        gymname.style.backgroundColor = "green";
-        gymname.style.color = "snow";
+        name.style.backgroundColor = "green";
+        name.style.color = "snow";
     }
     if (login.value == "") {
         login.style.backgroundColor = "red";
@@ -28,7 +28,7 @@ function validate() {
         login.style.backgroundColor = "green";
         login.style.color = "snow";
     }
-    if (email.value == "") {
+    if(email.value == ""){
         email.style.backgroundColor = "red";
         document.getElementById("email").placeholder = "Kérlek add meg az e-mail címed.";
         email.style.color = "snow";
@@ -46,25 +46,44 @@ function validate() {
             return false;
         }
     }
-    if (city.value == "") {
-        city.style.backgroundColor = "red";
-        document.getElementById("city").placeholder = "Kérlek add meg a város nevét.";
-        city.style.color = "snow";
+    if (birth.value == null) {
+        birth.style.backgroundColor = "red";
+        document.getElementById("gym").placeholder = "Kérlek add meg a szülteséi éved.";
+        birth.style.color = "snow";
         return false;
     }
     else{
-        city.style.backgroundColor = "green";
-        city.style.color = "snow";
+        birth.style.backgroundColor = "green";
+        birth.style.color = "snow";
     }
 }
 $(document).ready(function () {
-    var dataWait;
-    $.ajax({
+    var id;
+        function makeOptions(data){
+        var element = document.getElementById("gym")
+        for(j = 0;j<data.length;j++){
+            var opt = document.createElement('option');
+            opt.value =data[j][1];
+            opt.text= data[j][0];
+            element.add(opt) ;
+        }
+        }
+        $.ajax({
         type: "GET",
-        url: "gym/getMaxID",
+        url: "gym/getAllGymNameAndGymID",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function(data){dataWait = data;},
+        success: function(data){makeOptions(data);},
+        failure: function(errMsg) {
+        alert(errMsg);
+    }
+    });
+    $.ajax({
+        type: "GET",
+        url: "customer/getMaxID",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){id = data;},
         failure: function(errMsg) {
             alert(errMsg);
         }
@@ -72,20 +91,22 @@ $(document).ready(function () {
     $("#submit").click(function(){
         if(validate() == false)
             return;
-        var gymname = document.getElementById("gymName").value;
+        var name = document.getElementById("name").value;
         var login = document.getElementById("login").value;
         var email = document.getElementById("email").value;
-        var city = document.getElementById("city").value;
+        var birth = document.getElementById("birth").value;
+        var gym = document.getElementById("gym").value;
         var parameters = '{' +
-            '"gymID":'+dataWait+',' +
-            '"gymName":"' + gymname +'",' +
-            '"login":"' +login +'",' +
+            '"gymid":'+gym+',' +
+            '"login":"' + login +'",' +
+            '"birth":"' +birth +'",' +
             '"email":"'+email + '",' +
-            '"city":"'+city+'"' +
+            '"name":"'+name+'",' +
+            '"id":'+id +
             '}';
         $.ajax({
             type: "POST",
-            url: "gym/addGym",
+            url: "customer/addCustomer",
             data: parameters,
             contentType: "application/json; charset=utf-8",
             dataType: "json",

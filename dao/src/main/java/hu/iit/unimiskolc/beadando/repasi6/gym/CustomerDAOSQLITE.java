@@ -1,17 +1,15 @@
 package hu.iit.unimiskolc.beadando.repasi6.gym;
 
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.CustomerAlreadyExistsException;
-import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.CustomerNotFoundException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.*;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Customer;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.CustomerDAO;
-import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class CustomerDAOSQLITE implements CustomerDAO {
     String url = "jdbc:sqlite:./database/" + "customer";
@@ -49,9 +47,8 @@ public class CustomerDAOSQLITE implements CustomerDAO {
                 preparedStatement.setInt(7,customer.getGymID());
                 preparedStatement.executeUpdate();
             }
-
         } catch (SQLException e) {
-            throw new PersistenceException("Cannot create gym.");
+            throw new PersistenceException("Cannot create customer.");
         }
     }
 
@@ -108,6 +105,18 @@ public class CustomerDAOSQLITE implements CustomerDAO {
             }
         } catch (SQLException e) {
             throw new PersistenceException("Cannot update customer.");
+        } catch (GymIDException e) {
+            throw new PersistenceException("Missing gymid.");
+        } catch (NoEmailException e) {
+            throw new PersistenceException("Missing email.");
+        } catch (NoBirthDayException e) {
+            throw new PersistenceException("Missing birthday.");
+        } catch (NoLoginException e) {
+            throw new PersistenceException("Missing login.");
+        } catch (NoRegistrationDateException e) {
+            throw new PersistenceException("Missing registrationdate.");
+        } catch (NoNameException e) {
+            throw new PersistenceException("Missing name.");
         }
         return readCustomerObj;
     }
@@ -138,6 +147,18 @@ public class CustomerDAOSQLITE implements CustomerDAO {
             }
         } catch (SQLException e) {
             throw new PersistenceException("Cannot read customer.");
+        } catch (GymIDException e) {
+            throw new PersistenceException("Missing gymid.");
+        } catch (NoEmailException e) {
+            throw new PersistenceException("Missing email.");
+        } catch (NoBirthDayException e) {
+            throw new PersistenceException("Missing birthday.");
+        } catch (NoLoginException e) {
+            throw new PersistenceException("Missing login.");
+        } catch (NoRegistrationDateException e) {
+            throw new PersistenceException("Missing registrationdate.");
+        } catch (NoNameException e) {
+            throw new PersistenceException("Missing name.");
         }
         return readCustomerObj;
     }
@@ -168,7 +189,19 @@ public class CustomerDAOSQLITE implements CustomerDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new PersistenceException("Cannot update customer's.");
+            throw new PersistenceException("Cannot update customers.");
+        } catch (GymIDException e) {
+            throw new PersistenceException("Missing gymid.");
+        } catch (NoEmailException e) {
+            throw new PersistenceException("Missing email.");
+        } catch (NoBirthDayException e) {
+            throw new PersistenceException("Missing birthday.");
+        } catch (NoLoginException e) {
+            throw new PersistenceException("Missing login.");
+        } catch (NoRegistrationDateException e) {
+            throw new PersistenceException("Missing registrationdate.");
+        } catch (NoNameException e) {
+            throw new PersistenceException("Missing name.");
         }
         return readCustomerList;
     }
@@ -188,5 +221,27 @@ public class CustomerDAOSQLITE implements CustomerDAO {
         } catch (SQLException e) {
             throw new PersistenceException("Could not delete customer.");
         }
+    }
+
+    @Override
+    public int getMaxID() throws CustomerNotFoundException, PersistenceException {
+        int id=0;
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection conn = DriverManager.getConnection(url)) {
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT max(id) FROM Customer");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    id = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            return 0;
+        }
+        return id+1;
     }
 }

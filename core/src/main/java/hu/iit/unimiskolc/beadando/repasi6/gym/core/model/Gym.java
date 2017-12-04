@@ -12,14 +12,25 @@ public class Gym {
     Collection<Customer> customers;
     int verify;
 
-    public Gym(int gymID, String email, String login, String gymName, int verify, String city) throws NoLoginException, NoNameException, NoEmailException, GymIDException, NoCityException {
+    public Gym(int gymID, String email, String login, String gymName, int verify,String city) throws NoLoginException, NoNameException, NoEmailException, GymIDException, NoCityException {
         setGymID(gymID);
         setEmail(email);
         setLogin(login);
         setGymName(gymName);
-        setCity(city);
         setVerify(verify);
+        setCity(city);
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) throws NoCityException {
+        if(city.isEmpty())
+            throw new NoCityException();
+        this.city = city;
+    }
+
 
     public int getVerify() {
         return verify;
@@ -75,15 +86,5 @@ public class Gym {
         if(gymName.isEmpty())
             throw new NoNameException("GymName must be set.");
         this.gymName = gymName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) throws NoCityException {
-        if(city.isEmpty())
-            throw new NoCityException("City cannot be empty");
-        this.city = city;
     }
 }

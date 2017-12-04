@@ -27,6 +27,9 @@ public class CustomerController {
     @ResponseStatus(value = HttpStatus.EXPECTATION_FAILED,reason = "nem adtál meg minden adatot.")
     @ExceptionHandler({NoEmailException.class, NoNameException.class, GymIDException.class, NoLoginException.class, NoRegistrationDateException.class, NoBirthDayException.class})
     public void neEmailExHandler(){}
+    @ResponseStatus(value = HttpStatus.EXPECTATION_FAILED,reason = "már létezik ilyen felhasználó.")
+    @ExceptionHandler({CustomerAlreadyExistsException.class})
+    public String alreadyExists(CustomerAlreadyExistsException ex){return ex.getMessage();}
 
 
     @RequestMapping(value={"/addCustomer"}, method={RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)

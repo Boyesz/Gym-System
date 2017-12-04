@@ -4,6 +4,7 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.*;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Gym;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.GymDAO;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.LoginAlreadyExistsException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
 
 
@@ -15,7 +16,7 @@ public class GymDAOSQLITE implements GymDAO {
 
     String url = "jdbc:sqlite:./database/" + "gym";
     @Override
-    public void createGym(Gym gym) throws GymAlreadyExistsException, PersistenceException {
+    public void createGym(Gym gym) throws GymAlreadyExistsException, PersistenceException, LoginAlreadyExistsException {
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
@@ -25,6 +26,12 @@ public class GymDAOSQLITE implements GymDAO {
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT login FROM Gym");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    if(gym.getLogin().equals(resultSet.getString("login")))
+                        throw new LoginAlreadyExistsException();
+                }
                 String sql = "CREATE TABLE IF NOT EXISTS Gym (\n"
                         + "	gymid integer PRIMARY KEY,\n"
                         + "	name text NOT NULL,\n"
@@ -36,7 +43,7 @@ public class GymDAOSQLITE implements GymDAO {
                 Statement statement = conn.createStatement();
                 statement.execute(sql);
                 sql = "INSERT INTO Gym(gymid,name,city,login,email,verify) VALUES (?,?,?,?,?,?)";
-                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                preparedStatement = conn.prepareStatement(sql);
                 preparedStatement.setInt(1,gym.getGymID());
                 preparedStatement.setString(2,gym.getGymName());
                 preparedStatement.setString(3,gym.getCity());
@@ -167,8 +174,7 @@ public class GymDAOSQLITE implements GymDAO {
     }
 
     @Override
-    public int getMaxGymID() throws GymNotFoundException, PersistenceException {
-        Gym readGymObj = null;
+    public int getMaxGymID() throws GymNotFoundException, PersistenceException{
         int id = 1000;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -183,9 +189,9 @@ public class GymDAOSQLITE implements GymDAO {
                     id = resultSet.getInt(1);
 
                 }
-            }
+            }else return 1000;
         } catch (SQLException e) {
-            throw new PersistenceException("Cannot read gym.");
+            return 1000;
         }
         return id+1;
     }
@@ -206,7 +212,7 @@ public class GymDAOSQLITE implements GymDAO {
                 while (resultSet.next()) {
                     readGyms.add(new String[]{resultSet.getString("name"), String.valueOf(resultSet.getInt("gymid"))});
                 }
-            }
+            }else return null;
         } catch (SQLException e) {
             throw new PersistenceException("Cannot read gyms.");
         }

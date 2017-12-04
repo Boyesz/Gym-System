@@ -4,12 +4,13 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.CustomerAlreadyExi
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.CustomerNotFoundException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Customer;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.LoginAlreadyExistsException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
 
 import java.util.Collection;
 
 public interface CustomerDAO {
-    public void createCustomer(Customer customer) throws CustomerAlreadyExistsException,PersistenceException;
+    public void createCustomer(Customer customer) throws CustomerAlreadyExistsException, PersistenceException, LoginAlreadyExistsException;
 
     public void updateCustomer(Customer customer) throws CustomerNotFoundException,PersistenceException;
 

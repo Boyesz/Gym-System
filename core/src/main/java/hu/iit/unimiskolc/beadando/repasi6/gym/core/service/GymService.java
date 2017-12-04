@@ -4,6 +4,7 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.GymNotFoundExcepti
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.*;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Dictionary;
 import java.util.List;

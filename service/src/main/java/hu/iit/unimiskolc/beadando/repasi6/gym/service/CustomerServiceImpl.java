@@ -6,6 +6,7 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Customer;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.service.CustomerService;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.CustomerDAO;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.LoginAlreadyExistsException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
 
 import java.util.ArrayList;
@@ -21,7 +22,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void createCustomer(Customer customer) throws CustomerAlreadyExistsException, PersistenceException {
+        try {
             customerDAO.createCustomer(customer);
+        } catch (LoginAlreadyExistsException e) {
+            throw new CustomerAlreadyExistsException();
+        }
     }
 
     @Override

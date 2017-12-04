@@ -58,6 +58,16 @@ function validate() {
     }
 }
 $(document).ready(function () {
+    $("#regCustomer").click(function () {
+        $.get("regcust.html", function (data) {
+            document.getElementById('content').innerHTML = data;
+        });
+    });
+    $("#regGym").click(function () {
+        $.get("regym.html", function (data) {
+            document.getElementById('content').innerHTML = data;
+        });
+    });
     var dataWait;
     $.ajax({
         type: "GET",

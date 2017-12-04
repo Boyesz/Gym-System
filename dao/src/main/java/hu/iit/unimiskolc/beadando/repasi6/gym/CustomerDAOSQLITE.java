@@ -4,6 +4,7 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.*;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Customer;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.CustomerDAO;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.LoginAlreadyExistsException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
 
 import java.sql.*;
@@ -14,7 +15,7 @@ import java.util.Collection;
 public class CustomerDAOSQLITE implements CustomerDAO {
     String url = "jdbc:sqlite:./database/" + "customer";
     @Override
-    public void createCustomer(Customer customer) throws CustomerAlreadyExistsException, PersistenceException {
+    public void createCustomer(Customer customer) throws CustomerAlreadyExistsException, PersistenceException, LoginAlreadyExistsException {
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
@@ -24,6 +25,14 @@ public class CustomerDAOSQLITE implements CustomerDAO {
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT login FROM Customer");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    if(customer.getLogin().equals(resultSet.getString("login")))
+                        throw new LoginAlreadyExistsException();
+                }
+
+
                 String sql = "CREATE TABLE IF NOT EXISTS Customer (\n"
                         + "	id integer PRIMARY KEY,\n"
                         + "	name text NOT NULL,\n"
@@ -37,7 +46,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
                 Statement statement = conn.createStatement();
                 statement.execute(sql);
                 sql = "INSERT INTO Customer(id,name,registrationdate,login,birthday,email,gymid) VALUES (?,?,?,?,?,?,?)";
-                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                preparedStatement = conn.prepareStatement(sql);
                 preparedStatement.setInt(1,customer.getID());
                 preparedStatement.setString(2,customer.getName());
                 preparedStatement.setString(3, String.valueOf(customer.getRegistrationDate()));
@@ -238,7 +247,7 @@ public class CustomerDAOSQLITE implements CustomerDAO {
                 while (resultSet.next()){
                     id = resultSet.getInt(1);
                 }
-            }
+            }else return 0;
         } catch (SQLException e) {
             return 0;
         }

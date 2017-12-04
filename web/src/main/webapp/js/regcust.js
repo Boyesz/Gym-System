@@ -58,6 +58,16 @@ function validate() {
     }
 }
 $(document).ready(function () {
+    $("#regCustomer").click(function () {
+        $.get("regcust.html", function (data) {
+            document.getElementById('content').innerHTML = data;
+        });
+    });
+    $("#regGym").click(function () {
+        $.get("regym.html", function (data) {
+            document.getElementById('content').innerHTML = data;
+        });
+    });
     var id;
         function makeOptions(data){
         var element = document.getElementById("gym")
@@ -65,7 +75,7 @@ $(document).ready(function () {
             var opt = document.createElement('option');
             opt.value =data[j][1];
             opt.text= data[j][0];
-            element.add(opt) ;
+            element.add(opt);
         }
         }
         $.ajax({

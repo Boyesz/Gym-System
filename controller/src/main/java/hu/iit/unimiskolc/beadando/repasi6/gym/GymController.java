@@ -27,7 +27,11 @@ public class GymController {
     public void persistenceExHandler(){}
     @ResponseStatus(value = HttpStatus.EXPECTATION_FAILED,reason = "nem adtál meg minden adatot.")
     @ExceptionHandler({NoNameException.class, NoLoginException.class, GymIDException.class, NoEmailException.class, NoCityException.class})
-    public void neEmailExHandler(){}
+    public void noEmailExHandler(){}
+    @ResponseStatus(value = HttpStatus.EXPECTATION_FAILED,reason = "már létezik ilyen felhasználó.")
+    @ExceptionHandler({GymAlreadyExistsException.class})
+    public String alreadyExists(GymAlreadyExistsException ex){return ex.getMessage();}
+
 
     @RequestMapping(value = {"/getMaxID"},method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -37,7 +41,7 @@ public class GymController {
 
     @RequestMapping(value={"/addGym"}, method={RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public int gymCreate(@RequestBody GymRegistrationRequest gymRegistrationRequest) throws GymAlreadyExistsException, NoNameException, NoLoginException, GymIDException, NoEmailException, NoCityException, PersistenceException {
+    public int gymCreate(@RequestBody GymRegistrationRequest gymRegistrationRequest) throws NoNameException, NoLoginException, GymIDException, NoEmailException, NoCityException, PersistenceException, GymAlreadyExistsException {
         Gym gym = null;
             gym = new Gym(gymRegistrationRequest.getGymID(),
                               gymRegistrationRequest.getEmail(),

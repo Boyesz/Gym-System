@@ -6,8 +6,10 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.core.model.Gym;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.service.GymService;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.GymDAO;
 import hu.iit.unimiskolc.beadando.repasi6.gym.core.exceptions.PersistenceException;
+import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.LoginAlreadyExistsException;
 import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailableException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,7 +24,11 @@ public class GymServiceImpl implements GymService {
 
     @Override
     public void createGym(Gym gym) throws GymAlreadyExistsException, PersistenceException {
+        try {
             gymDAO.createGym(gym);
+        } catch (LoginAlreadyExistsException e) {
+            throw new GymAlreadyExistsException();
+        }
     }
 
     @Override

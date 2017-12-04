@@ -26,12 +26,6 @@ public class GymDAOSQLITE implements GymDAO {
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
-                PreparedStatement preparedStatement = conn.prepareStatement("SELECT login FROM Gym");
-                ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()){
-                    if(gym.getLogin().equals(resultSet.getString("login")))
-                        throw new LoginAlreadyExistsException();
-                }
                 String sql = "CREATE TABLE IF NOT EXISTS Gym (\n"
                         + "	gymid integer PRIMARY KEY,\n"
                         + "	name text NOT NULL,\n"
@@ -42,6 +36,12 @@ public class GymDAOSQLITE implements GymDAO {
                         + ");";
                 Statement statement = conn.createStatement();
                 statement.execute(sql);
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT login FROM Gym");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    if(gym.getLogin().equals(resultSet.getString("login")))
+                        throw new LoginAlreadyExistsException();
+                }
                 sql = "INSERT INTO Gym(gymid,name,city,login,email,verify) VALUES (?,?,?,?,?,?)";
                 preparedStatement = conn.prepareStatement(sql);
                 preparedStatement.setInt(1,gym.getGymID());
@@ -52,7 +52,6 @@ public class GymDAOSQLITE implements GymDAO {
                 preparedStatement.setInt(6,gym.getVerify());
                 preparedStatement.executeUpdate();
             }
-
         } catch (SQLException e) {
             throw new PersistenceException("Gym creation failed.");
         }

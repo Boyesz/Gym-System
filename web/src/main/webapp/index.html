@@ -6,8 +6,23 @@
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/regym.js"></script>
     <script src="js/regcust.js"></script>
+    <script src="js/regym.js"></script>
+    <script>
+    function regcust() {
+        $.get("regcust.html", function (data) {
+            document.getElementById('content').innerHTML = data;
+            custRegInit();
+        });
+    }
+    function regym() {
+        $.get("regym.html", function (data) {
+            document.getElementById('content').innerHTML = data;
+            gymRegInit();
+        });
+    }
+    </script>
+
     <style>
         @import url('https://fonts.googleapis.com/css?family=Fresca');
         @import url('https://fonts.googleapis.com/css?family=Indie Flower');
@@ -25,8 +40,8 @@
 <a href="kapcs.html">Kapcsolat</a>
 </div>
 <div id="mySidenav" class="sidenav">
-  <a href="#" id="regGym">Konditerem regisztrálása</a>
-  <a href="#" id="regCustomer">Felhasználó Regisztrálása</a>
+  <a href="javascript:regym()" id="regGym">Konditerem regisztrálása</a>
+  <a href="javascript:regcust()" id="regCustomer">Felhasználó Regisztrálása</a>
 </div>
 <div id="content">
 <div class="full-mid">

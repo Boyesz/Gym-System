@@ -9,6 +9,7 @@ import hu.iit.unimiskolc.beadando.repasi6.gym.dao.exceptions.StorageNotAvailable
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -25,14 +26,6 @@ public class CustomerDAOSQLITE implements CustomerDAO {
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
-                PreparedStatement preparedStatement = conn.prepareStatement("SELECT login FROM Customer");
-                ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()){
-                    if(customer.getLogin().equals(resultSet.getString("login")))
-                        throw new LoginAlreadyExistsException();
-                }
-
-
                 String sql = "CREATE TABLE IF NOT EXISTS Customer (\n"
                         + "	id integer PRIMARY KEY,\n"
                         + "	name text NOT NULL,\n"
@@ -45,6 +38,12 @@ public class CustomerDAOSQLITE implements CustomerDAO {
                         + ");";
                 Statement statement = conn.createStatement();
                 statement.execute(sql);
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT login FROM Customer");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    if(customer.getLogin().equals(resultSet.getString("login")))
+                        throw new LoginAlreadyExistsException();
+                }
                 sql = "INSERT INTO Customer(id,name,registrationdate,login,birthday,email,gymid) VALUES (?,?,?,?,?,?,?)";
                 preparedStatement = conn.prepareStatement(sql);
                 preparedStatement.setInt(1,customer.getID());
@@ -174,7 +173,6 @@ public class CustomerDAOSQLITE implements CustomerDAO {
 
     @Override
     public Collection<Customer> readCustomer(int gymid) throws StorageNotAvailableException, PersistenceException {
-        Customer readCustomerObj = null;
         Collection<Customer> readCustomerList = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
@@ -183,22 +181,23 @@ public class CustomerDAOSQLITE implements CustomerDAO {
         }
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
-                PreparedStatement preparedStatement = conn.prepareStatement("SELECT id,name,registrationdate,login,birthday,email,gymid FROM Customer Where");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT id,name,registrationdate,login,birthday,email,gymid FROM Customer Where gymid=?");
                 preparedStatement.setInt(1,gymid);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()){
-                    readCustomerObj.setID(resultSet.getInt("id"));
-                    readCustomerObj.setName(resultSet.getString("name"));
-                    readCustomerObj.setRegistrationDate(LocalDate.parse(resultSet.getString("registrationdate")));
-                    readCustomerObj.setLogin(resultSet.getString("login"));
-                    readCustomerObj.setBirthDay(LocalDate.parse(resultSet.getString("birthday")));
-                    readCustomerObj.setEmail(resultSet.getString("email"));
-                    readCustomerObj.setGymID(resultSet.getInt("gymid"));
-                    readCustomerList.add(readCustomerObj);
+                    readCustomerList.add(new Customer(resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            LocalDate.parse(resultSet.getString("registrationdate"),formatter),
+                            resultSet.getInt("gymid"),
+                            LocalDate.parse(resultSet.getString("birthday"),formatter),
+                            resultSet.getString("email"),
+                            resultSet.getString("login")
+                            ));
                 }
             }
         } catch (SQLException e) {
-            throw new PersistenceException("Cannot update customers.");
+            throw new PersistenceException("Cannot read customers.");
         } catch (GymIDException e) {
             throw new PersistenceException("Missing gymid.");
         } catch (NoEmailException e) {

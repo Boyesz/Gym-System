@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/customer")
@@ -21,9 +22,9 @@ public class CustomerController {
         this.customerService=customerService;
     }
 
-    @ResponseStatus(value = HttpStatus.NOT_FOUND,reason = "jelenleg nem elérhtő a szolgáltatás.")
+   /* @ResponseStatus(value = HttpStatus.NOT_FOUND,reason = "jelenleg nem elérhtő a szolgáltatás.")
     @ExceptionHandler(PersistenceException.class)
-    public void persistenceExHandler(){}
+    public void persistenceExHandler(){}*/
     @ResponseStatus(value = HttpStatus.EXPECTATION_FAILED,reason = "nem adtál meg minden adatot.")
     @ExceptionHandler({NoEmailException.class, NoNameException.class, GymIDException.class, NoLoginException.class, NoRegistrationDateException.class, NoBirthDayException.class})
     public void neEmailExHandler(){}
@@ -49,5 +50,11 @@ public class CustomerController {
     @ResponseBody
     public int getMaxID() throws CustomerNotFoundException, PersistenceException {
         return customerService.getMaxID();
+    }
+
+    @RequestMapping(value = {"/getCustomers"},method = {RequestMethod.GET},consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Collection<Customer> getCustomers() throws PersistenceException {
+        return customerService.readCustomer(1000);
     }
 }

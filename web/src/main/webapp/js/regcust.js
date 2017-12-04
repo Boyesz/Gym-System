@@ -2,22 +2,12 @@ function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
-function validate() {
+function validateCust() {
     var name = document.getElementById("name");
     var login = document.getElementById("login");
     var email = document.getElementById("email");
     var gym = document.getElementById("gym");
     var birth = document.getElementById("birth");
-    if (name.value == "") {
-        name.style.backgroundColor = "red";
-        document.getElementById("name").placeholder = "Kérlek add meg a saját neved.";
-        name.style.color = "snow";
-        return false;
-    }
-    else{
-        name.style.backgroundColor = "green";
-        name.style.color = "snow";
-    }
     if (login.value == "") {
         login.style.backgroundColor = "red";
         document.getElementById("login").placeholder = "Kérlek add meg a felhasználó neved.";
@@ -27,6 +17,16 @@ function validate() {
     else{
         login.style.backgroundColor = "green";
         login.style.color = "snow";
+    }
+    if (name.value == "") {
+        name.style.backgroundColor = "red";
+        document.getElementById("name").placeholder = "Kérlek add meg a saját neved.";
+        name.style.color = "snow";
+        return false;
+    }
+    else{
+        name.style.backgroundColor = "green";
+        name.style.color = "snow";
     }
     if(email.value == ""){
         email.style.backgroundColor = "red";
@@ -57,19 +57,10 @@ function validate() {
         birth.style.color = "snow";
     }
 }
-$(document).ready(function () {
-    $("#regCustomer").click(function () {
-        $.get("regcust.html", function (data) {
-            document.getElementById('content').innerHTML = data;
-        });
-    });
-    $("#regGym").click(function () {
-        $.get("regym.html", function (data) {
-            document.getElementById('content').innerHTML = data;
-        });
-    });
+
+function custRegInit(){
     var id;
-        function makeOptions(data){
+    function makeOptions(data){
         var element = document.getElementById("gym")
         for(j = 0;j<data.length;j++){
             var opt = document.createElement('option');
@@ -77,16 +68,16 @@ $(document).ready(function () {
             opt.text= data[j][0];
             element.add(opt);
         }
-        }
-        $.ajax({
+    }
+    $.ajax({
         type: "GET",
         url: "gym/getAllGymNameAndGymID",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function(data){makeOptions(data);},
         failure: function(errMsg) {
-        alert(errMsg);
-    }
+            alert(errMsg);
+        }
     });
     $.ajax({
         type: "GET",
@@ -98,8 +89,8 @@ $(document).ready(function () {
             alert(errMsg);
         }
     });
-    $("#submit").click(function(){
-        if(validate() == false)
+    $("#submitCust").click(function(){
+        if(validateCust() == false)
             return;
         var name = document.getElementById("name").value;
         var login = document.getElementById("login").value;
@@ -122,10 +113,15 @@ $(document).ready(function () {
             dataType: "json",
             success: function(data){
                 if(data == 1)
-                window.location.href = "success.html";},
+                {
+                    $.get("success.html", function (data) {
+                        document.getElementById('content').innerHTML = data;
+                        custRegInit();
+                    });}
+            },
             failure: function(errMsg) {
                 alert(errMsg);
             }
         });
     });
-});
+}

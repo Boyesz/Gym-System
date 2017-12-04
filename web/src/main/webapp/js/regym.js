@@ -3,7 +3,7 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-function validate() {
+function validateGym() {
     var gymname = document.getElementById("gymName");
     var login = document.getElementById("login");
     var email = document.getElementById("email");
@@ -57,17 +57,8 @@ function validate() {
         city.style.color = "snow";
     }
 }
-$(document).ready(function () {
-    $("#regCustomer").click(function () {
-        $.get("regcust.html", function (data) {
-            document.getElementById('content').innerHTML = data;
-        });
-    });
-    $("#regGym").click(function () {
-        $.get("regym.html", function (data) {
-            document.getElementById('content').innerHTML = data;
-        });
-    });
+
+function gymRegInit() {
     var dataWait;
     $.ajax({
         type: "GET",
@@ -79,8 +70,8 @@ $(document).ready(function () {
             alert(errMsg);
         }
     });
-    $("#submit").click(function(){
-        if(validate() == false)
+    $("#submitGym").click(function(){
+        if(validateGym() == false)
             return;
         var gymname = document.getElementById("gymName").value;
         var login = document.getElementById("login").value;
@@ -101,10 +92,15 @@ $(document).ready(function () {
             dataType: "json",
             success: function(data){
                 if(data == 1)
-                window.location.href = "success.html";},
+                {
+                    $.get("success.html", function (data) {
+                        document.getElementById('content').innerHTML = data;
+                        custRegInit();
+                    });}
+                },
             failure: function(errMsg) {
                 alert(errMsg);
             }
         });
     });
-});
+}
